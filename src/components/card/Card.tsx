@@ -27,6 +27,8 @@ const Card = ({ product }: { product: Product}) => {
     }
   };
 
+  
+
 
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart({ ...product, quantity: 1 }));

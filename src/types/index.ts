@@ -14,6 +14,7 @@ export interface Response {
 
 export interface Product {
   id: number;
+  quantity: number;
   title: string;
   description: string;
   category: string;

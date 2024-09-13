@@ -9,6 +9,7 @@ interface IInitialState {
 
 interface CartProduct extends Product {
   quantity: number;
+  
 }
 
 const initialState: IInitialState = {

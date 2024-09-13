@@ -4,8 +4,19 @@ type TInitialState = {
     token: string
 }
 
+const tokenString = localStorage.getItem("token");
+
+let token = "";
+try {
+  if (tokenString) {
+    token = JSON.parse(tokenString);
+  }
+} catch (e) {
+  console.error("Failed to parse token from localStorage:", e);
+}
+
 const initialState: TInitialState = {
-  token: JSON.parse(localStorage.getItem("token") as string) || "",
+  token,
 };
 
 const authSlice = createSlice({

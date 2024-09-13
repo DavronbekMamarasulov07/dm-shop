@@ -50,6 +50,7 @@ const RouteController = () => {
       >
         <Route path="" element={<Suspense><Profile /></Suspense>} />
       </Route>
+      
       <Route path="/search" element={<Suspense><Search /></Suspense>} />
       {/* <Route path="/cart" element={<Suspense><Cart /></Suspense>} /> */}
       <Route path="*" element={<Suspense><NotFound /></Suspense>} />

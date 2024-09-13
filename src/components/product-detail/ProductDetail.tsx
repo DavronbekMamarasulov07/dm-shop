@@ -150,13 +150,13 @@ const handleDecrement = () => {
                         Quantity
                       </span>
                       <div className="flex items-center gap-3 border  border-[#56b280] px-3 py-1">
-                        <AiOutlinePlus
-                          onClick={() => handleIncrement()}
+                        <AiOutlineMinus
+                          onClick={() => handleDecrement()}
                           className="text-[#56b280] text-xl font-bold transition-transform active:scale-90"
                         />
                         <span className="w-5 text-center">{quantity}</span>
-                        <AiOutlineMinus
-                          onClick={() => handleDecrement()}
+                        <AiOutlinePlus
+                          onClick={() => handleIncrement()}
                           className="text-[#56b280] text-xl font-bold transition-transform active:scale-90"
                         />
                       </div>
