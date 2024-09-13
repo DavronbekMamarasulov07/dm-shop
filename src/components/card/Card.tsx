@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { addToLiked, removeFromLiked } from "../../redux/slices/likeSlice";
 import { message } from "antd";
 import { Link } from "react-router-dom";
+import { addToCart } from "../../redux/slices/cartSlice";
 
 const Card = ({ product }: { product: Product}) => {
   const {likedProducts} = useSelector((state: RootState) => state.like)
@@ -25,6 +26,12 @@ const Card = ({ product }: { product: Product}) => {
       message.success(`${product.title} added to favorites`);
     }
   };
+
+
+  const handleAddToCart = (product: Product) => {
+    dispatch(addToCart({ ...product, quantity: 1 }));
+    message.success(`${product.title} added to cart`);
+  }
   return (
     <div>
       <div
@@ -56,7 +63,7 @@ const Card = ({ product }: { product: Product}) => {
                   <AiOutlineHeart />
                 )}
               </span>
-              <span className="text-right text-[#56b280] text-2xl font-medium transition-transform hover:scale-110">
+              <span onClick={() => handleAddToCart(product)} className="text-right text-[#56b280] text-2xl font-medium transition-transform hover:scale-110">
                 <BsFillCartPlusFill />
               </span>
             </div>

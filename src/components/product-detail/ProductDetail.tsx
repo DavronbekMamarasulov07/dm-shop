@@ -6,10 +6,15 @@ import { useGetProductsByIdQuery } from '../../redux/api/productsApi';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { Skeleton, message } from "antd";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { Product } from "../../types";
+import { addToCart } from "../../redux/slices/cartSlice";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState<number>(1);
+  const dispatch = useDispatch<AppDispatch>();
 
   if (!id) {
     return <div>Product not found</div>;
@@ -36,6 +41,15 @@ const handleDecrement = () => {
   }
 
 };
+
+ const handleAddToCart = (product : Product, quantity : number) => {
+   dispatch(addToCart({ ...product, quantity }));
+   message.success(`${product.title} added to cart`);
+   setQuantity(1);
+ };
+
+ 
+
 
   return (
     <div>
@@ -184,7 +198,10 @@ const handleDecrement = () => {
                     </div>
                   </div>
                 </div>
-                <div className="   mt-[65px] flex  justify-end">
+                <div
+                  onClick={() => handleAddToCart(data as Product, quantity)}
+                  className=" mt-[65px] flex  justify-end"
+                >
                   <button className="add-btn border  flex items-center justify-center gap-3 border-[#56b280] text-[#56b280] text-xl font-light   px-[95px] py-2 transition-transform  hover:bg-[#56b280] hover:text-white ">
                     <AiOutlineShoppingCart className="text-2xl add-btn_icon text-[#56b280]  " />{" "}
                     + Add to cart

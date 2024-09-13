@@ -16,17 +16,18 @@ const Search = () => {
 
  console.log(products);
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="my-[100px]">
+      <div className="my-[100px]  flex-grow">
         <Container>
-          <Title className="text-center py-6" level={2}>
-            Search results for: <span className="underline ">{param}</span>
-          </Title>
-          <div className="grid grid-cols-4 gap-4 ">
-            {products?.map((product) => (
-              <Card key={product.id} product={product} />
-            ))}
+          <div className="grid grid-cols-3 gap-4">
+            {products?.length === 0 ? (
+              <Title  level={2}>No products found</Title>
+            ) : (
+              products?.map((product) => (
+                <Card key={product.id} product={product} />
+              ))
+            )}
           </div>
         </Container>
       </div>

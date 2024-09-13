@@ -9,6 +9,7 @@ const Liked = lazy(() => import("./liked/Liked"));
 const Profile = lazy(() => import("./profile/Profile"));
 const Search = lazy(() => import("./search/Search"));
 const NotFound = lazy(() => import("./not-found/NotFound"));
+// const Cart = lazy(() => import("./cart/Cart"));
 
 const RouteController = () => {
   return (
@@ -50,6 +51,7 @@ const RouteController = () => {
         <Route path="" element={<Suspense><Profile /></Suspense>} />
       </Route>
       <Route path="/search" element={<Suspense><Search /></Suspense>} />
+      {/* <Route path="/cart" element={<Suspense><Cart /></Suspense>} /> */}
       <Route path="*" element={<Suspense><NotFound /></Suspense>} />
 
     </Routes>

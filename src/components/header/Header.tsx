@@ -361,21 +361,25 @@ const Header = () => {
                 </Form.Item>
               </Form>
             </div>
-            <div className="flex gap-4">
-              <NavLink to="/cart">
-                <Badge count={11} overflowCount={9}>
-                  <BsCart3 className="text-2xl" />
-                </Badge>
-              </NavLink>
-              <NavLink to="/liked">
-                <Badge count={likedProducts?.length} overflowCount={9}>
-                  <AiFillHeart className="text-[28px] text-red-500" />
-                </Badge>
-              </NavLink>
+            <div className="flex items-center gap-4">
+              <div className="">
+                <NavLink to="/cart">
+                  <Badge count={2} overflowCount={9}>
+                    <BsCart3 className="text-2xl" />
+                  </Badge>
+                </NavLink>
+              </div>
+              <div className="!mb-0">
+                <NavLink to="/liked" >
+                  <Badge count={likedProducts?.length} overflowCount={9}>
+                    <AiFillHeart className="text-[30px] text-red-500" />
+                  </Badge>
+                </NavLink>
+              </div>
               {!isToken ? (
                 <BiUserCircle
                   onClick={showModal}
-                  className="text-[40px] text-[#596780]"
+                  className="text-[30px] text-[#596780] mb-1.5"
                 />
               ) : (
                 <Dropdown
