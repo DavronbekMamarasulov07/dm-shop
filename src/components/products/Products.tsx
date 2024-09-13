@@ -4,7 +4,7 @@ import Container from "../container/Container";
 import Card from "../card/Card";
 
 const Products = () => {
-  const { data } = useGetProductsQuery();
+  const { data, isLoading } = useGetProductsQuery();
   const products = data?.products;
 
   return (
@@ -17,14 +17,7 @@ const Products = () => {
           <p className="w-[1109px] h-[35px] text-center text-[#5e6e89] text-lg font-medium  leading-7 tracking-tight mb-[60px]">
             Order it for you or for your beloved ones
           </p>
-          {products && products.length > 0 ? (
-            <div className="grid grid-cols-4 gap-10">
-              {products &&
-                products.slice(0, 8).map((product) => (
-                  <Card product={product} key={product.id} />
-                ))}
-            </div>
-          ) : (
+          {isLoading ? (
             <div className="grid grid-cols-4 gap-10">
               {Array.from({ length: 8 }).map((_, index) => (
                 <div className="flex flex-col shadow-xl" key={index}>
@@ -44,6 +37,15 @@ const Products = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-4 gap-10">
+              {products &&
+                products
+                  .slice(0, 8)
+                  .map((product) => (
+                    <Card product={product} key={product.id} />
+                  ))}
             </div>
           )}
         </div>

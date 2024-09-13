@@ -1,11 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import SuspenseElement from "../utils";
+import Suspense from "../utils";
 import { lazy } from "react";
 
 const Home = lazy(() => import("./home/Home"));
 const Details = lazy(() => import("./details/Details"));
 const Private = lazy(() => import("./private/Private"));
 const Liked = lazy(() => import("./liked/Liked"));
+const Profile = lazy(() => import("./profile/Profile"));
+const Search = lazy(() => import("./search/Search"));
+const NotFound = lazy(() => import("./not-found/NotFound"));
 
 const RouteController = () => {
   return (
@@ -13,37 +16,42 @@ const RouteController = () => {
       <Route
         path="/"
         element={
-          <SuspenseElement>
+          <Suspense>
             <Home />
-          </SuspenseElement>
+          </Suspense>
         }
       />
 
       <Route
         path="/details/:id"
         element={
-          <SuspenseElement>
+          <Suspense>
             <Details />
-          </SuspenseElement>
+          </Suspense>
         }
       />
       <Route
         path="/liked"
         element={
-          <SuspenseElement>
+          <Suspense>
             <Liked />
-          </SuspenseElement>
+          </Suspense>
         }
       />
 
       <Route
-        path="/private"
+        path="/profile"
         element={
-          <SuspenseElement>
+          <Suspense>
             <Private />
-          </SuspenseElement>
+          </Suspense>
         }
-      />
+      >
+        <Route path="" element={<Suspense><Profile /></Suspense>} />
+      </Route>
+      <Route path="/search" element={<Suspense><Search /></Suspense>} />
+      <Route path="*" element={<Suspense><NotFound /></Suspense>} />
+
     </Routes>
   );
 };

@@ -9,9 +9,6 @@
   scroll-behavior: smooth;
 }
 
-body{
-  background-color: #E5E5E5;
-}
 
 a{
   text-decoration: none;
@@ -149,4 +146,41 @@ ul{
   transition: .5s;
 }
 
+.add-btn{
+  transition: .3s;
+}
 
+.add-btn:hover  .add-btn_icon{
+    color: #fff;
+}
+
+
+.add-btn:active{
+  transform: scale(0.9);
+}
+
+.detail-bg{
+  background-color: #f7f7f7;
+  mix-blend-mode: multiply;
+}
+
+
+.ant-select-selection-search-input{
+  border: none !important;
+}
+
+.ant-select-selector{
+  border: none !important;
+}
+
+.ant-select-selection-search{
+  border: none !important;
+}
+
+.ant-select-selection-search-input:focus{
+  border: none !important;
+}
+
+.ant-select-selection-search:focus{
+  border: none !important;
+}

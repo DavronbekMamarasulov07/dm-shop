@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { addToLiked, removeFromLiked } from "../../redux/slices/likeSlice";
 import { message } from "antd";
+import { Link } from "react-router-dom";
 
-const Card = ({ product }: { product: Product }) => {
+const Card = ({ product }: { product: Product}) => {
   const {likedProducts} = useSelector((state: RootState) => state.like)
   const dispatch = useDispatch<AppDispatch>();
 
@@ -30,9 +31,12 @@ const Card = ({ product }: { product: Product }) => {
         key={product.id}
         className="cart flex flex-col h-[300px] shadow-xl rounded  overflow-hidden "
       >
-        <div className=" bg-black py-5  w-full flex items-center justify-center min-h-[190px] relative overflow-hidden">
+        <Link
+          to={`/details/${product.id}`}
+          className=" bg-black py-5  w-full flex items-center justify-center min-h-[190px] relative overflow-hidden"
+        >
           <img width={150} src={product.thumbnail} alt="product_img" />
-        </div>
+        </Link>
         <div className="px-5 py-4 flex flex-col w-full flex-1 ">
           <h3 className="text-[#1c283f] text-base font-medium flex-1 ">
             {product.title}
@@ -47,9 +51,9 @@ const Card = ({ product }: { product: Product }) => {
                 className="text-right text-red-500 text-2xl font-medium transition-transform hover:scale-110"
               >
                 {isProductLiked(product.id) ? (
-                  <AiFillHeart  />
+                  <AiFillHeart />
                 ) : (
-                  <AiOutlineHeart  />
+                  <AiOutlineHeart />
                 )}
               </span>
               <span className="text-right text-[#56b280] text-2xl font-medium transition-transform hover:scale-110">

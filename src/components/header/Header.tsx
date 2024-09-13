@@ -1,11 +1,225 @@
-import { AiFillHeart } from "react-icons/ai"; 
-import { BsCart3 } from "react-icons/bs"; 
-import {  Modal } from "antd";
-import { BiSearch } from "react-icons/bi";
-import { NavLink } from "react-router-dom";
-import { Avatar, Badge } from "antd";
+// import { BiLogInCircle, BiUserCircle, BiSearch } from "react-icons/bi";
+// import { AiFillHeart } from "react-icons/ai";
+// import { BsCart3 } from "react-icons/bs";
+// import { AutoComplete, Modal, message, Avatar, Badge, Dropdown, Form } from "antd";
+// import {  Link, NavLink, useNavigate } from "react-router-dom";
+// import Container from "../container/Container";
+// import { useEffect, useState } from "react";
+// import { openAuth } from "../../redux/slices/modalSlice";
+// import { useDispatch, useSelector } from "react-redux";
+// import { AppDispatch } from "../../redux/store";
+// import { RootState } from "../../redux/store";
+// import useSearchParamsHook from "../../hooks/UseQueryParams";
+// import Auth from "../auth/Auth";
+// import SignIn from "../auth/signIn/SignIn";
+// import SignUp from "../auth/signUp/SignUp";
+// import { RiAccountPinBoxFill } from "react-icons/ri";
+// import { signOut } from "../../redux/slices/authSlice";
+// import { useGetProductsBySearchQuery } from "../../redux/api/productsApi";
+// import "./Header.css";
+// import { LuSettings2 } from "react-icons/lu";
+
+// const Header = () => {
+//   const { likedProducts } = useSelector((state: RootState) => state.like);
+//   const [search, setSearch] = useState<string>("");
+//   const { data } = useGetProductsBySearchQuery({ q: search });
+//   const { authOpen } = useSelector((state: RootState) => state.modal);
+//   const { setParam, getParam, removeParam } = useSearchParamsHook();
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch<AppDispatch>();
+//   const isToken = Boolean(localStorage.getItem("token"));
+
+//   useEffect(() => {
+//     if (getParam("auth")) {
+//       dispatch(openAuth(true));
+//     } else {
+//       dispatch(openAuth(false));
+//     }
+//   }, [getParam("auth")]);
+
+//   const showModal = () => {
+//     dispatch(openAuth(true));
+//     setParam("auth", "true");
+//   };
+
+//   const handleCancel = () => {
+//     dispatch(openAuth(false));
+//     removeParam("auth");
+//   };
+
+//   const items = [
+//     {
+//       key: "1",
+//       icon: (
+//         <RiAccountPinBoxFill style={{ fontSize: "1rem", color: "#596780" }} />
+//       ),
+//       label: (
+//         <Link to="/profile">
+//           <strong style={{ color: "#596780", fontSize: "1rem" }}>
+//             Profile
+//           </strong>
+//         </Link>
+//       ),
+//     },
+//     {
+//       key: "2",
+//       icon: <BiLogInCircle style={{ fontSize: "1rem", color: "#596780" }} />,
+//       label: (
+//         <strong
+//           onClick={() => handleLogOut()}
+//           style={{ color: "#596780", fontSize: "1rem" }}
+//         >
+//           Log Out
+//         </strong>
+//       ),
+//     },
+//   ];
+
+//      const handleSearchSubmit = (value: string) => {
+//        navigate(`/search?q=${value.search}`);
+//      };
+//      const onSelect = (data: string) => {
+//        console.log("onSelect", data);
+//      };
+//      const loadData = async (searchText: string) => {
+//        try {
+//          setSearch(searchText);
+//        } catch (error) {
+//          console.log(error);
+//        }
+//      };
+
+//   const handleLogOut = () => {
+//     message.success("You have been successfully logged out");
+//     dispatch(signOut());
+//     localStorage.removeItem("token"); 
+//     navigate("/");
+
+
+//   console.log(searchData)
+ 
+
+//   return (
+//     <>
+//       <div className="bg-green-100 w-full fixed top-0 z-50 shadow-lg">
+//         <Container>
+//           <div className="flex w-full justify-between mx-auto items-center py-4">
+//             <Link to="/">
+//               <h2 className="text-3xl font-semibold">
+//                 DM-<span className="text-green-600">Shop</span>
+//               </h2>
+//             </Link>
+//             <div>
+//               <Form
+//                 initialValues={{ search: getParam("q") }}
+//                 onFinish={handleSearchSubmit}
+//                 className="flex items-center gap-3 bg-[#fefefe] h-[45px] w-[500px] py-1 px-4 rounded-[62px] border border-gray-300 hover:border-[#1677FF]"
+//               >
+//                 <BiSearch className="text-[#0000005f] text-2xl" />
+//                 <Form.Item
+//                   name="search"
+//                   className="w-full !mb-0"
+//                   rules={[{ required: false }]}
+//                 >
+//                   <AutoComplete
+//                     onKeyDown={(e) => {
+//                       if (e.key === "Enter") {
+//                         navigate(`/search?q=${search}`);
+//                       }
+//                     }}
+//                     options={data?.products?.map((item) => ({
+//                       label: (
+//                         <Link
+//                           className="block"
+//                           key={item.id}
+//                           to={`/details/${item.id}`}
+//                         >
+//                           {item.title}
+//                         </Link>
+//                       ),
+//                     }))}
+//                     className="search_input"
+//                     onSelect={onSelect}
+//                     onSearch={(text: string) =>
+//                       text ? loadData(text) : loadData("")
+//                     }
+//                     placeholder="Search..."
+//                   />
+//                 </Form.Item>
+//                 <LuSettings2 className="text-[24px] text-gray-400" />
+//               </Form>
+//             </div>
+//             <div className="flex gap-4">
+//               <NavLink to="/liked">
+//                 <Badge count={11} overflowCount={9}>
+//                   <BsCart3 className="text-2xl" />
+//                 </Badge>
+//               </NavLink>
+//               <NavLink to="/liked">
+//                 <Badge count={likedProducts?.length} overflowCount={9}>
+//                   <AiFillHeart className="text-[28px] text-red-500" />
+//                 </Badge>
+//               </NavLink>
+//               {!isToken ? (
+//                 <BiUserCircle
+//                   onClick={showModal}
+//                   className="text-[40px] text-[#596780]"
+//                 />
+//               ) : (
+//                 <Dropdown
+//                   menu={{ items }}
+//                   placement="bottomRight"
+//                   trigger={["click"]}
+//                 >
+//                   <a onClick={(e) => e.preventDefault()}>
+//                     <Avatar
+//                       size="large"
+//                       className="shadow-xl"
+//                       src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
+//                     />
+//                   </a>
+//                 </Dropdown>
+//               )}
+//             </div>
+//           </div>
+//         </Container>
+//       </div>
+//       <Modal
+//         open={authOpen}
+//         onCancel={handleCancel}
+//         footer={null}
+//         maskClosable={false}
+//         centered
+//       >
+//         {getParam("auth") === "true" ? (
+//           <Auth />
+//         ) : getParam("auth") === "signIn" ? (
+//           <SignIn />
+//         ) : getParam("auth") === "signUp" ? (
+//           <SignUp />
+//         ) : null}
+//       </Modal>
+//     </>
+//   );
+// };
+// }
+
+// export default Header;
+
+import { BiLogInCircle, BiUserCircle, BiSearch } from "react-icons/bi";
+import { AiFillHeart } from "react-icons/ai";
+import { BsCart3 } from "react-icons/bs";
+import {
+  AutoComplete,
+  Modal,
+  message,
+  Avatar,
+  Badge,
+  Dropdown,
+  Form,
+} from "antd";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Container from "../container/Container";
-import "./Header.css";
 import { useEffect, useState } from "react";
 import { openAuth } from "../../redux/slices/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,101 +229,169 @@ import useSearchParamsHook from "../../hooks/UseQueryParams";
 import Auth from "../auth/Auth";
 import SignIn from "../auth/signIn/SignIn";
 import SignUp from "../auth/signUp/SignUp";
+import { RiAccountPinBoxFill } from "react-icons/ri";
+import { signOut } from "../../redux/slices/authSlice";
+import { useGetProductsBySearchQuery } from "../../redux/api/productsApi";
+import "./Header.css";
 
 const Header = () => {
-   const { likedProducts } = useSelector((state: RootState) => state.like);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
+  const { likedProducts } = useSelector((state: RootState) => state.like);
+  const { data } = useGetProductsBySearchQuery({ q : search });
   const { authOpen } = useSelector((state: RootState) => state.modal);
-  const {setParam , getParam, removeParam} = useSearchParamsHook()
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Search term:", searchTerm);
-  };
-  const dispatch = useDispatch<AppDispatch>()
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  };
+  const { setParam, getParam, removeParam } = useSearchParamsHook();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const isToken = Boolean(localStorage.getItem("token"));
 
   useEffect(() => {
-    if(getParam('auth')){
-      dispatch(openAuth(true))
+    if (getParam("auth")) {
+      dispatch(openAuth(true));
+    } else {
+      dispatch(openAuth(false));
     }
-    else {
-      dispatch(openAuth(false))
-    }
-  }, [getParam('auth')])
-
+  }, [getParam("auth")]);
 
   const showModal = () => {
-    dispatch(openAuth(true))
-    setParam('auth', authOpen ? 'false' : 'true')
+    dispatch(openAuth(true));
+    setParam("auth", "true");
   };
 
-  
   const handleCancel = () => {
-    dispatch(openAuth(false)) 
-    removeParam('auth')
+    dispatch(openAuth(false));
+    removeParam("auth");
   };
 
-  
+  const handleLogOut = () => {
+    message.success("You have been successfully logged out");
+    dispatch(signOut());
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  const items = [
+    {
+      key: "1",
+      icon: (
+        <RiAccountPinBoxFill style={{ fontSize: "1rem", color: "#596780" }} />
+      ),
+      label: (
+        <Link to="/profile">
+          <strong style={{ color: "#596780", fontSize: "1rem" }}>
+            Profile
+          </strong>
+        </Link>
+      ),
+    },
+    {
+      key: "2",
+      icon: <BiLogInCircle style={{ fontSize: "1rem", color: "#596780" }} />,
+      label: (
+        <strong
+          onClick={handleLogOut}
+          style={{ color: "#596780", fontSize: "1rem" }}
+        >
+          Log Out
+        </strong>
+      ),
+    },
+  ];
+
+  const handleSearchSubmit = (value: { search: string }) => {
+    navigate(`/search?q=${value.search}`);
+  };
+
+  const onSelect = (data: string) => {
+    console.log("onSelect", data);
+  };
+
+  const loadData = async (searchText: string) => {
+    try {
+      setSearch(searchText);
+    } catch (error) {
+      console.error("Error loading search data:", error);
+    }
+  };
 
   return (
     <>
-      <div className="bg-green-100  w-full  fixed top-0 z-50 ">
+      <div className="bg-green-100 w-full fixed top-0 z-50 shadow-lg">
         <Container>
-          <div className="flex w-full justify-between  mx-auto items-center py-4">
-            <h2 className="text-3xl font-semibold">
-              DM-<span className="text-green-600">Shop</span>
-            </h2>
-            <div className="flex gap-4 items-center pl-2  bg-[#ffffffad] w-full max-w-[500px]">
-              <span className="mb-[2px] text-gray-400">|</span>
-              <form
-                onSubmit={handleSearch}
-                className="flex items-center gap-2 justify-between w-full"
+          <div className="flex w-full justify-between mx-auto items-center py-4">
+            <Link to="/">
+              <h2 className="text-3xl font-semibold">
+                DM-<span className="text-green-600">Shop</span>
+              </h2>
+            </Link>
+            <div>
+              <Form
+                initialValues={{ search: getParam("q") }}
+                onFinish={handleSearchSubmit}
+                className="flex items-center  gap-3 bg-[#fefefe]  w-[500px] py-1 px-4 rounded-[62px] border border-gray-300  hover:border-[#56b280]"
               >
-                <input
-                  className="outline-none border-none bg-transparent w-full"
-                  type="text"
-                  placeholder="Search"
-                  value={searchTerm}
-                  onChange={handleChange}
-                />
-                <button
-                  onClick={handleSearch}
-                  type="button"
-                  className="bg-green-600 text-xl px-4 py-2 text-white"
+                <BiSearch className="text-[#0000005f] text-2xl" />
+                <Form.Item
+                  name="search"
+                  className="w-full !mb-0"
+                  rules={[{ required: false }]}
                 >
-                  <BiSearch />
-                </button>
-              </form>
+                  <AutoComplete
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        navigate(`/search?q=${search}`);
+                      }
+                    }}
+                    options={data?.products?.map((product) => ({
+                      label: (
+                        <Link
+                          className="block"
+                          key={product.id}
+                          to={`/details/${product.id}`}
+                        >
+                          {product.title}
+                        </Link>
+                      ),
+                    }))}
+                    style={{ width: "100%" }}
+                    className="custom-autocomplete"
+                    onSelect={onSelect}
+                    onSearch={(text) => (text ? loadData(text) : loadData(""))}
+                    placeholder="Search..."
+                  />
+                </Form.Item>
+              </Form>
             </div>
-
-            <div className="flex  gap-4">
-              <NavLink
-                className="!mb-0 flex items-center justify-center"
-                to="/liked-recipes"
-              >
-                <Badge count={11} overflowCount={9} >
+            <div className="flex gap-4">
+              <NavLink to="/cart">
+                <Badge count={11} overflowCount={9}>
                   <BsCart3 className="text-2xl" />
                 </Badge>
               </NavLink>
-
-              <NavLink
-                className="!mb-0 flex items-center justify-center"
-                to="/liked-recipes"
-              >
-                <Badge count={likedProducts?.length} overflowCount={9} >
-                  <AiFillHeart className="text-[26px] text-red-500" />
+              <NavLink to="/liked">
+                <Badge count={likedProducts?.length} overflowCount={9}>
+                  <AiFillHeart className="text-[28px] text-red-500" />
                 </Badge>
               </NavLink>
-
-              <Avatar
-                onClick={showModal}
-                size="large"
-                className="shadow-xl"
-                src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
-              />
+              {!isToken ? (
+                <BiUserCircle
+                  onClick={showModal}
+                  className="text-[40px] text-[#596780]"
+                />
+              ) : (
+                <Dropdown
+                  menu={{ items }}
+                  placement="bottomRight"
+                  trigger={["click"]}
+                >
+                  <a onClick={(e) => e.preventDefault()}>
+                    <Avatar
+                      size="large"
+                      className="shadow-xl"
+                      src="https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png"
+                    />
+                  </a>
+                </Dropdown>
+              )}
             </div>
           </div>
         </Container>
@@ -121,9 +403,13 @@ const Header = () => {
         maskClosable={false}
         centered
       >
-        {(getParam("auth") === "true" && <Auth />) ||
-          (getParam("auth") === "signIn" && <SignIn />) ||
-          (getParam("auth") === "signUp" && <SignUp />)}
+        {getParam("auth") === "true" ? (
+          <Auth />
+        ) : getParam("auth") === "signIn" ? (
+          <SignIn />
+        ) : getParam("auth") === "signUp" ? (
+          <SignUp />
+        ) : null}
       </Modal>
     </>
   );
