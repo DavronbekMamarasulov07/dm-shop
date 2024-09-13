@@ -1,0 +1,9 @@
+.hero{
+  margin-top: 72px;
+  background-image: url('../../img/bg-image.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 700px;
+  width: 100%;
+}
