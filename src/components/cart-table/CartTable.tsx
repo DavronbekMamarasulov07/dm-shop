@@ -10,9 +10,11 @@ import {
   removeFromCart,
 } from "../../redux/slices/cartSlice";
 import { RootState } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 const CartTable = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartProduct = useSelector((state: RootState) =>
     selectCartProductById(state, product.id)
   );
@@ -46,7 +48,7 @@ const cancel: PopconfirmProps["onCancel"] = (e) => {
       dispatch(decrementQuantity(product.id));
       
     } else {
-      message.error("Quantity cannot be less than 1");
+      navigate("/");
     }
   };
 
