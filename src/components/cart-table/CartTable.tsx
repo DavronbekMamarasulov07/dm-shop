@@ -26,9 +26,6 @@ const CartTable = ({ product }: { product: Product }) => {
     dispatch(incrementQuantity(product.id));
   };
 
-if (quantity === 10) {
-  message.success("10% discount applied");
-}
 
 
   
@@ -48,7 +45,7 @@ const cancel: PopconfirmProps["onCancel"] = (e) => {
       dispatch(decrementQuantity(product.id));
       
     } else {
-      navigate("/");
+      dispatch(removeFromCart(product.id));
     }
   };
 
