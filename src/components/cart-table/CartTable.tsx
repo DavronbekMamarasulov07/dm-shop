@@ -31,13 +31,13 @@ const CartTable = ({ product }: { product: Product }) => {
   
 const confirm: PopconfirmProps["onConfirm"] = (e) => {
   console.log(e);
-  message.success("Product removed");
+  message.success(`${product.title} removed in cart`);
   dispatch(removeFromCart(product.id));
 };
 
 const cancel: PopconfirmProps["onCancel"] = (e) => {
   console.log(e);
-  message.error("Product not removed");
+  message.error(`${product.title} not removed in cart`);
 };
 
   const handleDecrement = () => {
@@ -46,6 +46,7 @@ const cancel: PopconfirmProps["onCancel"] = (e) => {
       
     } else {
       dispatch(removeFromCart(product.id));
+      message.error(`${product.title} removed in cart`);
     }
   };
 
@@ -85,8 +86,8 @@ const cancel: PopconfirmProps["onCancel"] = (e) => {
       </td>
       <td>
         <Popconfirm
-          title="Delete the product"
-          description="Are you sure to delete this product?"
+          title={`Delete the ${product.title}`}
+          description={`Are you sure to delete this ${product.title}?`}
           onConfirm={confirm}
           onCancel={cancel}
           okText="Delete"
