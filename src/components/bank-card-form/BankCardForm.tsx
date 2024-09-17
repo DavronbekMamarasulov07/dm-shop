@@ -1,4 +1,3 @@
-import React from "react";
 import { Input, Button, Form, message } from "antd";
 import { CreditCardOutlined } from "@ant-design/icons";
 import "./BankCardForm.css"
@@ -8,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const BankCardForm: React.FC = () => {
+const BankCardForm = ({total }: {total: number}) => {
   const [form] = Form.useForm<CardFormValues>();
   const {removeParam} = useSearchParamsHook();
   const navigate = useNavigate();
@@ -39,7 +38,7 @@ const BankCardForm: React.FC = () => {
 
   return (
     <div className="bank-card-content">
-      <div className="modal-title text-2xl font-semibold mb-5 text-green-700" >
+      <div className="modal-title text-2xl font-semibold mb-5 text-green-700">
         <CreditCardOutlined /> Bank Card
       </div>
       <Form<CardFormValues>
@@ -122,8 +121,15 @@ const BankCardForm: React.FC = () => {
           </Form.Item>
         </Form.Item>
         <Form.Item>
-          <div className="mt-5 w-full flex justify-center">
-            <Button type="primary" htmlType="submit" className="w-full max-w-[200px] text-xl !py-5" >
+          <div className="mt-5 w-full flex justify-between items-center">
+            <h3 className="text-xl font-bold ">
+              Total: <span className="text-green-700">${total}</span>
+            </h3>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="w-full max-w-[200px] text-xl !py-5"
+            >
               Pay
             </Button>
           </div>

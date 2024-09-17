@@ -22,6 +22,8 @@ const Carts = () => {
     .map((product) => product.price * (product.quantity || 0))
     .reduce((a, b) => a + b, 0).toFixed(2);
 
+  const Total = +total;
+
     
 
   useEffect(() => {
@@ -129,7 +131,7 @@ const Carts = () => {
         open={isModalOpen}
         onCancel={handleCancel}
       >
-        <BankCardForm />
+        <BankCardForm  total={Total} />
       </Modal>
     </div>
   );

@@ -10,11 +10,9 @@ import {
   removeFromCart,
 } from "../../redux/slices/cartSlice";
 import { RootState } from "../../redux/store";
-import { useNavigate } from "react-router-dom";
 
-const CartTable = ({ product }: { product: Product }) => {
+const CartTable = ({ product  }: { product: Product }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const cartProduct = useSelector((state: RootState) =>
     selectCartProductById(state, product.id)
   );
@@ -25,7 +23,6 @@ const CartTable = ({ product }: { product: Product }) => {
       
     dispatch(incrementQuantity(product.id));
   };
-
 
 
   
