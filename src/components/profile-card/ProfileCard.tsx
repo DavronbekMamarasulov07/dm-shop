@@ -19,12 +19,10 @@ const ProfileCard = () => {
         cover={<div className="h-32 bg-green-600" />}
       >
         <div className="flex flex-col items-center -mt-16 mb-4 ">
-          <Avatar
-            size={128}
-            src={user.image}
-            className="ring-4 ring-white"
-          />
-          <h2 className="mt-4 text-2xl font-bold">{user.firstName} {user.lastName}</h2>
+          <Avatar size={128} src={user.image} className="ring-4 ring-white" />
+          <h2 className="mt-4 text-2xl font-bold">
+            {user.firstName} {user.lastName}
+          </h2>
           <span className="px-2 py-1 text-xs font-semibold text-green-600 bg-green-100 rounded-full mt-3">
             {user.gender}
           </span>

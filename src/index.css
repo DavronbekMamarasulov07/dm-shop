@@ -27,6 +27,8 @@ ul{
 
 
 
+  
+
 
 .cart:hover{
   transform: scale(1.03);
@@ -183,4 +185,35 @@ ul{
 
 .ant-select-selection-search:focus{
   border: none !important;
+}
+
+.cart-table th{
+  padding: 10px;
+}
+
+.cart-table td , .cart-table th{
+  border: 1px solid rgb(34, 197, 94);
+  text-align: center;
+}
+
+.ant-btn-default{
+  border: #1aab4b 1px solid !important;
+}
+
+.ant-btn-default:hover{
+  background-color: #1aab4b !important;
+  border: #1aab4b 1px solid !important;
+  color: #fff !important;
+}
+
+.ant-btn-primary{
+  background-color: #1aab4b !important;
+  border: #1aab4b 1px solid !important;
+  color: #fff !important;
+}
+
+.ant-btn-primary:hover{
+  background-color: #1aab4b !important;
+  border: #1aab4b 1px solid !important;
+  color: #fff !important;
 }

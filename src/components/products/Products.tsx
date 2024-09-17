@@ -1,6 +1,8 @@
+
 import { Skeleton } from "antd";
 import { useGetProductsQuery } from "../../redux/api/productsApi";
 import Container from "../container/Container";
+
 import Card from "../card/Card";
 
 const Products = () => {
@@ -44,7 +46,7 @@ const Products = () => {
                 products
                   .slice(0, 8)
                   .map((product) => (
-                    <Card product={product} key={product.id} />
+                    <Card  product={product} key={product.id} />
                   ))}
             </div>
           )}

@@ -14,7 +14,7 @@ export interface Response {
 
 export interface Product {
   id: number;
-  quantity: number;
+  quantity?: number;
   title: string;
   description: string;
   category: string;
@@ -62,3 +62,14 @@ export interface Review {
 
 
 
+export interface BankCardFormProps {
+  isModalOpen: boolean;
+  handleCancel: () => void;
+}
+
+export interface CardFormValues {
+  cardNumber: string;
+  cardHolder: string;
+  expiryDate: string;
+  cvv: string;
+}

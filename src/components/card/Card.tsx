@@ -1,6 +1,7 @@
-import { AiOutlineHeart } from "react-icons/ai"; 
-import { AiFillHeart } from "react-icons/ai"; 
-import { BsFillCartPlusFill } from "react-icons/bs"; 
+
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import { BsFillCartPlusFill } from "react-icons/bs";
 import { Product } from "../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
@@ -9,8 +10,8 @@ import { message } from "antd";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../redux/slices/cartSlice";
 
-const Card = ({ product }: { product: Product}) => {
-  const {likedProducts} = useSelector((state: RootState) => state.like)
+const Card = ({ product }: { product: Product }) => {
+  const { likedProducts } = useSelector((state: RootState) => state.like);
   const dispatch = useDispatch<AppDispatch>();
 
   const isProductLiked = (productId: number) => {
@@ -27,17 +28,15 @@ const Card = ({ product }: { product: Product}) => {
     }
   };
 
-  
-
-
   const handleAddToCart = (product: Product) => {
     dispatch(addToCart({ ...product, quantity: 1 }));
     message.success(`${product.title} added to cart`);
-  }
+  };
+
+  
   return (
     <div>
       <div
-        key={product.id}
         className="cart flex flex-col h-[300px] shadow-xl rounded  overflow-hidden "
       >
         <Link
@@ -65,7 +64,10 @@ const Card = ({ product }: { product: Product}) => {
                   <AiOutlineHeart />
                 )}
               </span>
-              <span onClick={() => handleAddToCart(product)} className="text-right text-[#56b280] text-2xl font-medium transition-transform hover:scale-110">
+              <span
+                onClick={() => handleAddToCart(product)}
+                className="text-right text-[#56b280] text-2xl font-medium transition-transform hover:scale-110"
+              >
                 <BsFillCartPlusFill />
               </span>
             </div>
@@ -74,6 +76,6 @@ const Card = ({ product }: { product: Product}) => {
       </div>
     </div>
   );
-}
+};
 
-export default Card
+export default Card;

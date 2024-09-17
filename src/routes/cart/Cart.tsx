@@ -1,68 +1,137 @@
-// import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../redux/store";
-// import Header from "../../components/header/Header";
-// import Footer from "../../components/footer/Footer";
-// import ProductsCart from "../../components/products-cart/ProductsCart";
-// import { Product } from "../../types";
-// import { Link } from "react-router-dom";
+import Header from "../../components/header/Header.tsx";
+import { useSelector } from "react-redux";
+import {  RootState } from "../../redux/store";
+import { Product } from "../../types";
+import Footer from "../../components/footer/Footer.tsx";
+import CartTable from "../../components/cart-table/CartTable.tsx";
+import Container from "../../components/container/Container.tsx";
+import { useEffect, useState } from "react";
+import { Button, Modal } from "antd";
+import useSearchParamsHook from "../../hooks/UseQueryParams.tsx";
+import BankCardForm from "../../components/bank-card-form/BankCardForm.tsx";
 
-// const Cart: React.FC = () => {
-//   const { cartProduct } = useSelector((state: RootState) => state.cart);
-//   const [products, setProducts] = useState<Product>({} as Product);
+const Carts = () => {
+   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+   const { setParam, getParam ,removeParam } = useSearchParamsHook();
+  const { cartProduct }: { cartProduct: Product[] } = useSelector(
+    (state: RootState) => state.cart
+  );
+  
 
-//   // Sync products state with cartProduct from Redux
-//   useEffect(() => {
-//     setProducts( cartProduct as Product);
-//   }, [cartProduct]); // Dependency array ensures effect runs when cartProduct changes
+  const total = cartProduct
+    .map((product) => product.price * (product.quantity || 0))
+    .reduce((a, b) => a + b, 0).toFixed(2);
 
-//   return (
-//     <div className="flex min-h-screen w-full flex-col justify-between bg-white">
-//       <Header />
-//       <div className="mb-12 mt-24 flex flex-col gap-10">
-//         <div className="container flex flex-col gap-16">
-//           <div className="flex flex-col items-center justify-center gap-4 text-center">
-//             <h2 className="text-center text-[26px] font-medium leading-[57.60px] text-[#272727]">
-//               Your cart items
-//             </h2>
-//             <Link
-//               to={"/"}
-//               className="h-[26px] w-[350px] text-center text-lg font-normal leading-relaxed text-[#56b280] underline"
-//             >
-//               Back to shopping
-//             </Link>
-//           </div>
+    
 
-//           <ProductsCart cartProduct={products} />
-//         </div>
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-//         <div className="container flex items-center justify-end">
-//           <div className="min-w-1/2 flex items-center gap-10">
-//             <div className="flex flex-col items-end justify-center gap-2">
-//               <div className="flex items-center gap-5">
-//                 <span className="text-xl font-medium leading-relaxed text-[#272727]">
-//                   Sub-total
-//                 </span>
-//                 <span className="text-right text-xl font-medium leading-relaxed text-[#272727]">
-//                   $ 9.99
-//                 </span>
-//               </div>
-//               <span className="text-right text-base font-normal leading-relaxed text-[#9e9e9e]">
-//                 Tax and shipping cost will be calculated later
-//               </span>
-//             </div>
 
-//             <button className="flex max-w-max items-start justify-start gap-2.5 rounded bg-[#56b280] px-11 py-2 transition active:scale-95">
-//               <span className="text-center text-xl font-medium text-white">
-//                 Check-out
-//               </span>
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//       <Footer />
-//     </div>
-//   );
-// };
+  useEffect(() => {
+    if (getParam("modal")) {
+      setIsModalOpen(true);
+    } else {
+      setIsModalOpen(false);
+    }
+  }, [getParam("modal")]);
 
-// export default Cart;
+   const showModal = () => {
+     setIsModalOpen(true);
+     setParam("modal", "open");
+   };
+  
+   const handleCancel = () => {
+     setIsModalOpen(false);
+     removeParam("modal");
+   };
+
+  console.log(total);
+  return (
+    <div className="min-h-screen flex flex-col ">
+      <Header />
+      <div className="my-[120px] flex-grow ">
+        <Container>
+          <div className="w-full flex flex-col items-end">
+            <div className="w-full">
+              <h2 className=" text-left text-3xl font-bold mb-5">
+                Product Cart
+              </h2>
+            </div>
+            <table className="w-full cart-table">
+              <thead className=" ">
+                <tr>
+                  <th scope="col">Product Image</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Product Price</th>
+                  <th scope="col">SubTotal</th>
+                  <th scope="col">
+                    <p>Quantity</p>
+                    <span className="text-[#56b280] text-[10px]">
+                      (quantity more than 10 will get 10% discount)
+                    </span>
+                  </th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody className="pt-5">
+                {cartProduct && cartProduct.length > 0 ? (
+                  cartProduct.map((product) => (
+                    <CartTable key={product.id} product={product} />
+                  ))
+                ) : (
+                  <tr className="w-full">
+                    <td colSpan={6} className="text-center py-10">
+                      Cart is empty
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+            {cartProduct && cartProduct.length > 0 ? (
+              <div className="bg-green-100 flex flex-col w-full max-w-[400px] p-5 mt-5 gap-2 items-end">
+                <div className=" w-full flex justify-between gap-5 ">
+                  <span className="text-2xl">SubTotal: </span>{" "}
+                  <strong className="text-xl">${total}</strong>
+                </div>
+                <div className=" w-full flex justify-between gap-5">
+                  <span className="text-2xl">Shipping</span>{" "}
+                  <strong className="text-xl">Free</strong>
+                </div>
+                <div className=" w-full flex justify-between gap-5">
+                  <span className="text-2xl text-green-700 font-bold">
+                    Total:{" "}
+                  </span>{" "}
+                  <strong className="text-xl text-green-700">${total}</strong>
+                </div>
+                <Button
+                  onClick={showModal}
+                  size="large"
+                  type="primary"
+                  className="!bg-green-500"
+                >
+                  Checkout
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+        </Container>
+      </div>
+      <Footer />
+      <Modal
+        className="custom-modal"
+        footer={null}
+        maskClosable={false}
+        centered
+        open={isModalOpen}
+        onCancel={handleCancel}
+      >
+        <BankCardForm />
+      </Modal>
+    </div>
+  );
+};
+export default Carts;
